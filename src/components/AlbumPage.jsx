@@ -2,11 +2,14 @@ import { Col, Container, Row } from "react-bootstrap";
 import { Link, useParams } from "react-router-dom";
 import SideBar from "./SideBar";
 import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { addTrackToState } from "../redux/actions";
 
 const AlbumPage = () => {
   const params = useParams();
   const [albumObj, setAlbumObj] = useState({});
   const [trackList, setTrackList] = useState([]);
+  const dispatch = useDispatch();
 
   const albumFetch = async () => {
     try {
@@ -68,7 +71,16 @@ const AlbumPage = () => {
                   <div>
                     {albumObj
                       ? trackList.map(track => (
-                          <div class="py-3 trackHover">
+                          <div
+                            class="py-3 trackHover"
+                            onClick={() => {
+                              dispatch(addTrackToState(track));
+                            }}
+                          >
+                            <img
+                              src="https://www.crushpixel.com/big-static14/preview4/heart-icon-flat-design-on-1497544.jpg"
+                              alt=""
+                            />
                             <a href="#" class="card-title trackHover px-3" style={{ color: "white" }}>
                               {track.title}
                             </a>

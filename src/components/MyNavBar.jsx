@@ -5,8 +5,16 @@ import Previous from "./playerbuttons/Previous.png";
 import Play from "./playerbuttons/Play.png";
 import Next from "./playerbuttons/Next.png";
 import Repeat from "./playerbuttons/Repeat.png";
+import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
 
 const MyNavBar = () => {
+  const track = useSelector(state => state.jobs.jobs.content);
+
+  useEffect(() => {
+    console.log(track[0]);
+  }, [track]);
+
   return (
     <Container fluid className="fixed-bottom bg-container pt-1">
       <Row>
@@ -41,6 +49,23 @@ const MyNavBar = () => {
                     </Link>
                   </Col>
                 </Row>
+              </Col>
+              <Col>
+                {track.length > 0 ? (
+                  <div className="d-flex">
+                    {
+                      <img
+                        src={track[0].album.cover}
+                        alt="album cover"
+                        style={{ maxWidth: "70px" }}
+                        className="mx-4 "
+                      />
+                    }
+                    <p className="text-white">{track[0].title}</p>
+                  </div>
+                ) : (
+                  ""
+                )}
               </Col>
             </Row>
           </Container>
